@@ -12,6 +12,38 @@ export const siteSettings = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: "activeHomePage",
+      title: "Active Home Page",
+      type: "reference",
+      to: [{ type: "homePage" }],
+      description:
+        "Choose which home page variant is live on the site. Switch this anytime to apply a different version.",
+    }),
+    defineField({
+      name: "activeAboutPage",
+      title: "Active About Page",
+      type: "reference",
+      to: [{ type: "aboutPage" }],
+      description:
+        "Choose which about page variant is live on the site. Switch this anytime to apply a different version.",
+    }),
+    defineField({
+      name: "activeHistoryPage",
+      title: "Active History Page",
+      type: "reference",
+      to: [{ type: "historyPage" }],
+      description:
+        "Choose which history page variant is live on the site. Switch this anytime to apply a different version.",
+    }),
+    defineField({
+      name: "activeContactPage",
+      title: "Active Contact Page",
+      type: "reference",
+      to: [{ type: "contactPage" }],
+      description:
+        "Choose which contact page variant is live on the site. Switch this anytime to apply a different version.",
+    }),
+    defineField({
       name: "tagline",
       title: "Tagline",
       type: "string",

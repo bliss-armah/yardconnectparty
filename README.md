@@ -56,13 +56,27 @@ Once a project id is set, every page pulls its content from Sanity. Without it, 
 
 Open `/studio` and edit these documents:
 
-- **Site Settings** for the event name, tagline, next event date, contact details, and social links.
-- **Home Page** for the hero, stats, highlights, and gallery.
-- **About Page** for the story and values.
-- **History Page** for the timeline of past editions.
-- **Contact Page** for contact details and the form note.
+- **Home Pages** for the hero, stats, highlights, and gallery.
+- **About Pages** for the story and values.
+- **History Pages** for the timeline of past editions.
+- **Contact Pages** for contact details and the form note.
+- **Site Settings** for the event name, the active page for each section, the tagline, next event date, contact details, and social links.
 
-Images uploaded in the Studio replace the gradient placeholders automatically.
+Every page is a list, so you can create as many variants of each as you like. Images uploaded in the Studio replace the gradient placeholders automatically.
+
+### Page variants
+
+You can prepare several versions of any page and switch between them at will.
+
+1. Open the page list, for example **Home Pages**, and create a new document. Give it a **Variant Name** so you can tell your versions apart.
+2. Fill in the content and publish.
+3. Open **Site Settings**, set the matching active field, for example **Active Home Page**, to the variant you want live, and publish.
+
+The site shows whichever variant is selected in Site Settings. Switch it anytime to apply a different one. If none is selected for a page, its most recently updated variant is used.
+
+### Field level fallback
+
+Content merges field by field. If a field in Sanity is left empty, the curated fallback copy is used for that field only, while every field you did fill in comes from Sanity. The site never shows a blank section because a single field was missing.
 
 ## Contact form
 

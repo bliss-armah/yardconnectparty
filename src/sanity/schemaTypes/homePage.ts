@@ -6,6 +6,14 @@ export const homePage = defineType({
   type: "document",
   fields: [
     defineField({
+      name: "title",
+      title: "Variant Name",
+      type: "string",
+      description:
+        "Internal label to tell your home page versions apart, for example \"Summer 2026\" or \"Sold out\". Not shown on the site.",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       name: "heroKicker",
       title: "Hero Kicker",
       type: "string",
@@ -112,5 +120,11 @@ export const homePage = defineType({
       rows: 3,
     }),
   ],
-  preview: { prepare: () => ({ title: "Home Page" }) },
+  preview: {
+    select: { title: "title", subtitle: "heroHeading" },
+    prepare: ({ title, subtitle }) => ({
+      title: title || "Untitled home page",
+      subtitle: subtitle ? `Hero: ${subtitle}` : "No hero heading yet",
+    }),
+  },
 });

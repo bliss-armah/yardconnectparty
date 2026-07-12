@@ -6,6 +6,14 @@ export const historyPage = defineType({
   type: "document",
   fields: [
     defineField({
+      name: "title",
+      title: "Variant Name",
+      type: "string",
+      description:
+        "Internal label to tell your history page versions apart. Not shown on the site.",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       name: "heading",
       title: "Heading",
       type: "string",
@@ -43,5 +51,11 @@ export const historyPage = defineType({
       ],
     }),
   ],
-  preview: { prepare: () => ({ title: "History Page" }) },
+  preview: {
+    select: { title: "title", subtitle: "heading" },
+    prepare: ({ title, subtitle }) => ({
+      title: title || "Untitled history page",
+      subtitle: subtitle || "No heading yet",
+    }),
+  },
 });

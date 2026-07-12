@@ -6,6 +6,14 @@ export const aboutPage = defineType({
   type: "document",
   fields: [
     defineField({
+      name: "title",
+      title: "Variant Name",
+      type: "string",
+      description:
+        "Internal label to tell your about page versions apart. Not shown on the site.",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       name: "heading",
       title: "Heading",
       type: "string",
@@ -45,5 +53,11 @@ export const aboutPage = defineType({
       ],
     }),
   ],
-  preview: { prepare: () => ({ title: "About Page" }) },
+  preview: {
+    select: { title: "title", subtitle: "heading" },
+    prepare: ({ title, subtitle }) => ({
+      title: title || "Untitled about page",
+      subtitle: subtitle || "No heading yet",
+    }),
+  },
 });

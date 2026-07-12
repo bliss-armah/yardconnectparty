@@ -230,21 +230,35 @@ const settingsQuery = `*[_type == "siteSettings"][0]{
   email, phone, address, socials
 }`;
 
-const homeQuery = `*[_type == "homePage"][0]{
+// Resolve the home page the editor marked active in Site Settings. If none is
+// chosen yet, fall back to the most recently updated home page variant.
+const homeQuery = `coalesce(
+  *[_type == "siteSettings"][0].activeHomePage->,
+  *[_type == "homePage"] | order(_updatedAt desc)[0]
+){
   heroKicker, heroHeading, heroSubheading, heroVideoUrl, heroImages, aftermovieUrl,
   introHeading, introBody, stats, highlights,
   gallery, ctaHeading, ctaBody
 }`;
 
-const aboutQuery = `*[_type == "aboutPage"][0]{
+const aboutQuery = `coalesce(
+  *[_type == "siteSettings"][0].activeAboutPage->,
+  *[_type == "aboutPage"] | order(_updatedAt desc)[0]
+){
   heading, intro, body, image, values
 }`;
 
-const historyQuery = `*[_type == "historyPage"][0]{
+const historyQuery = `coalesce(
+  *[_type == "siteSettings"][0].activeHistoryPage->,
+  *[_type == "historyPage"] | order(_updatedAt desc)[0]
+){
   heading, intro, timeline
 }`;
 
-const contactQuery = `*[_type == "contactPage"][0]{
+const contactQuery = `coalesce(
+  *[_type == "siteSettings"][0].activeContactPage->,
+  *[_type == "contactPage"] | order(_updatedAt desc)[0]
+){
   heading, intro, email, phone, address, hours, formNote
 }`;
 
