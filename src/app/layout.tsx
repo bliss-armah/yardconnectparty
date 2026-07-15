@@ -1,18 +1,28 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Inter } from "next/font/google";
+import { Anton } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const display = Playfair_Display({
+const display = Anton({
   variable: "--font-display-family",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
-  style: ["normal", "italic"],
+  weight: "400",
 });
 
-const sans = Inter({
+const sans = localFont({
   variable: "--font-sans-family",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  src: [
+    {
+      path: "../garet/Garet-Book.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../garet/Garet-Heavy.woff2",
+      weight: "800",
+      style: "normal",
+    },
+  ],
 });
 
 export const metadata: Metadata = {

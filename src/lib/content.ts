@@ -236,7 +236,10 @@ const homeQuery = `coalesce(
   *[_type == "siteSettings"][0].activeHomePage->,
   *[_type == "homePage"] | order(_updatedAt desc)[0]
 ){
-  heroKicker, heroHeading, heroSubheading, heroVideoUrl, heroImages, aftermovieUrl,
+  heroKicker, heroHeading, heroSubheading,
+  "heroVideoUrl": coalesce(heroVideo.asset->url, heroVideoUrl),
+  heroImages,
+  "aftermovieUrl": coalesce(aftermovieFile.asset->url, aftermovieUrl),
   introHeading, introBody, stats, highlights,
   gallery, ctaHeading, ctaBody
 }`;

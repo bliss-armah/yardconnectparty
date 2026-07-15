@@ -32,11 +32,19 @@ export const homePage = defineType({
       rows: 3,
     }),
     defineField({
-      name: "heroVideoUrl",
+      name: "heroVideo",
       title: "Hero Background Video",
+      type: "file",
+      options: { accept: "video/mp4" },
+      description:
+        "Upload a short looping mp4 that plays behind the hero. Takes priority over the link below.",
+    }),
+    defineField({
+      name: "heroVideoUrl",
+      title: "Hero Video Link (optional)",
       type: "url",
       description:
-        "A short looping video that plays behind the hero. Use a self hosted mp4 file for best results.",
+        "Use this instead if your video is hosted elsewhere, for example on a CDN. The uploaded file above wins if both are set.",
     }),
     defineField({
       name: "heroImages",
@@ -46,10 +54,19 @@ export const homePage = defineType({
       description: "Used as the hero backdrop when no video is set.",
     }),
     defineField({
-      name: "aftermovieUrl",
+      name: "aftermovieFile",
       title: "Aftermovie Video",
+      type: "file",
+      options: { accept: "video/mp4" },
+      description:
+        "Upload the highlight film that opens when guests press play. Takes priority over the link below.",
+    }),
+    defineField({
+      name: "aftermovieUrl",
+      title: "Aftermovie Link (optional)",
       type: "url",
-      description: "The highlight film that opens when guests press play.",
+      description:
+        "Use this instead if your aftermovie is hosted elsewhere. The uploaded file above wins if both are set.",
     }),
     defineField({
       name: "introHeading",

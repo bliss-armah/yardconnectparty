@@ -49,7 +49,7 @@ body {
 
 @layer utilities {
   .font-display {
-    font-family: var(--font-display), Georgia, serif;
+    font-family: var(--font-display), "Impact", "Arial Narrow", sans-serif;
   }
 
   .text-balance {
