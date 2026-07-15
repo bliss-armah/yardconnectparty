@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Anton } from "next/font/google";
 import localFont from "next/font/local";
+import { siteUrl } from "@/lib/site";
 import "./globals.css";
 
 const display = Anton({
@@ -26,7 +27,7 @@ const sans = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://yardconnect.party"),
+  metadataBase: new URL(siteUrl),
   title: {
     default: "YardConnect Party",
     template: "%s | YardConnect Party",
@@ -42,11 +43,27 @@ export const metadata: Metadata = {
     "culture",
     "celebration",
   ],
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "YardConnect Party",
     description:
       "One night of music, culture, and connection. Discover the party the whole city waits for all year.",
+    url: "/",
+    siteName: "YardConnect Party",
+    locale: "en_US",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "YardConnect Party",
+    description:
+      "One night of music, culture, and connection. Discover the party the whole city waits for all year.",
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 

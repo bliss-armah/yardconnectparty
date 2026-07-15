@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import Reveal from "@/components/Reveal";
@@ -5,6 +6,51 @@ import Photo from "@/components/Photo";
 import Countdown from "@/components/Countdown";
 import VideoLightbox from "@/components/VideoLightbox";
 import { getHome, getSettings } from "@/lib/content";
+import { absoluteUrl } from "@/lib/site";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSettings();
+
+  const dateLabel = settings.nextEventDate
+    ? new Intl.DateTimeFormat("en-US", {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+        timeZone: "UTC",
+      }).format(new Date(settings.nextEventDate))
+    : null;
+
+  const description = [
+    dateLabel && settings.nextEventLocation
+      ? `Join YardConnect on ${dateLabel} at ${settings.nextEventLocation}.`
+      : settings.tagline,
+    "One night of music, culture, and connection under the open sky.",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  return {
+    // Absolute so the home page keeps a clean title rather than the template.
+    title: { absolute: "YardConnect Party" },
+    description,
+    alternates: { canonical: "/" },
+    openGraph: {
+      title: "YardConnect Party",
+      description,
+      url: "/",
+      type: "website",
+      // Re-declare the generated card: a page-level openGraph object replaces
+      // the inherited one, which would otherwise drop the file-convention image.
+      images: ["/opengraph-image"],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "YardConnect Party",
+      description,
+      images: ["/twitter-image"],
+    },
+  };
+}
 
 export default async function HomePage() {
   const [home, settings] = await Promise.all([getHome(), getSettings()]);
@@ -12,8 +58,52 @@ export default async function HomePage() {
   const gallery = home.gallery || [];
   const ticker = ["YardConnect", "Music", "Culture", "Connection", "Community", "One night"];
 
+  // schema.org Event structured data — drives Google's rich event results.
+  // Pulled from Site Settings so it tracks the CMS instead of hardcoded copy.
+  const eventJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "MusicEvent",
+    name: settings.title || "YardConnect Party",
+    description: home.introBody || settings.tagline,
+    ...(settings.nextEventDate ? { startDate: settings.nextEventDate } : {}),
+    eventStatus: "https://schema.org/EventScheduled",
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    image: [absoluteUrl("/media/hero-crowd.jpg")],
+    url: absoluteUrl("/"),
+    organizer: {
+      "@type": "Organization",
+      name: "YardConnect",
+      url: absoluteUrl("/"),
+    },
+    ...(settings.nextEventLocation
+      ? {
+          location: {
+            "@type": "Place",
+            name: settings.nextEventLocation,
+            ...(settings.address
+              ? { address: settings.address }
+              : {}),
+          },
+        }
+      : {}),
+    ...(settings.ticketUrl
+      ? {
+          offers: {
+            "@type": "Offer",
+            url: settings.ticketUrl,
+            availability: "https://schema.org/InStock",
+          },
+        }
+      : {}),
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        // Structured data is trusted, first-party content built above.
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(eventJsonLd) }}
+      />
       {/* Hero with background video */}
       <section className="relative h-[100svh] min-h-[620px] w-full overflow-hidden grain">
         <div className="absolute inset-0">
