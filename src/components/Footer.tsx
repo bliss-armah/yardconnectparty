@@ -31,6 +31,9 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
               <span className="text-cream">{settings.nextEventLocation}</span>
             </p>
           ) : null}
+          <p className="mt-6 text-xs text-muted">
+            Copyright &copy; <span className="text-sm text-cream">{year}</span> YardConnect. Built for the people who make the yard.
+          </p>
         </div>
 
         <div>
@@ -82,14 +85,6 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
               </li>
             ))}
           </ul>
-        </div>
-      </div>
-
-      <div className="border-t border-line/60">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 py-6 text-xs text-muted md:flex-row">
-          <p>
-            Copyright {year} YardConnect. Built for the people who make the yard.
-          </p>
         </div>
       </div>
     </footer>
