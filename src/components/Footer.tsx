@@ -90,9 +90,6 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
           <p>
             Copyright {year} YardConnect. Built for the people who make the yard.
           </p>
-          <Link href="/studio" className="transition-colors hover:text-cream">
-            Content Studio
-          </Link>
         </div>
       </div>
     </footer>
